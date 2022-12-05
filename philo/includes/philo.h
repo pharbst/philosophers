@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2022/12/05 02:25:05 by pharbst          ###   ########.fr       */
+/*   Updated: 2022/12/05 07:13:52 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <string.h>
+# include <stdbool.h>
 
 typedef struct s_philo
 {
@@ -35,9 +36,9 @@ typedef struct s_philo
 typedef struct s_a
 {
 	int				philo_count;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	const int		time_to_die;
+	const int		time_to_eat;
+	const int		time_to_sleep;
 	int				eat_count;
 	int				start_time;
 	int				dead;
@@ -47,8 +48,7 @@ typedef struct s_a
 	t_philo			*philo;
 }	t_a;
 
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
-int		ft_strlen(const char *s);
+long		philo_atoi(char *str);
+bool		execute_sim(t_a *a);
 
 #endif
