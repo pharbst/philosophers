@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2022/12/05 09:20:45 by pharbst          ###   ########.fr        #
+#    Updated: 2022/12/08 11:41:28 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,10 @@ PRONAME		=	Philosophers
 SRC_NAME	=	main.c \
 				execute_sim.c \
 				philo_atoi.c \
+				ft_calloc.c\
+				philo.c\
+				timestamp.c\
+				
 
 # directorys
 INC_DIR		=	includes/
