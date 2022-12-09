@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2022/12/09 07:22:50 by pharbst          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:27:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
+# include <stdint.h>
 # include <pthread.h>
 # include <sys/time.h>
 # include <string.h>
@@ -29,7 +31,7 @@ typedef struct s_para
 	const int			time_to_eat;
 	const int			time_to_sleep;
 	const int			eat_count;
-	const unsigned long	starttime:
+	const unsigned long	starttime;
 }	t_para;
 
 
@@ -62,6 +64,8 @@ long			philo_atoi(char *str);
 bool			execute_sim(t_a *a);
 /*ft_calloc allocate memory and wipe it with 0*/
 void			*ft_calloc(size_t nelem, size_t elsize);
+/*ft_bzero wipe memory with 0*/
+void	ft_bzero(void *s, size_t n);
 /*philo is the main function for all philosophers*/
 void			philo(t_philo philo);
 /*utime returns the values of gettimeofday together as a unsigned long in usec*/

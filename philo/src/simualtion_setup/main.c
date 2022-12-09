@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:26:25 by pharbst           #+#    #+#             */
-/*   Updated: 2022/12/08 11:04:59 by pharbst          ###   ########.fr       */
+/*   Updated: 2022/12/09 09:20:44 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static bool	init_simulation(t_a *a)
 	a->forks = ft_calloc(sizeof(pthread_mutex_t), (a->parameter.philo_count));
 	if (!a->forks)
 		return (true);
-	if (pthread_mutex_init(&a->write, NULL))
-		return (true);
+	// if (pthread_mutex_init(&a->write, NULL))
+	// 	return (true);
 	i = 0;
 	while (i < a->parameter.philo_count)
 		if (pthread_mutex_init(&a->forks[i++], NULL))

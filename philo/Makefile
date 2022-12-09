@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2022/12/09 09:06:47 by pharbst          ###   ########.fr        #
+#    Updated: 2022/12/09 09:34:44 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC_NAME	=	main.c \
 				ft_calloc.c\
 				philo.c\
 				time.c\
+				ft_bzero.c\
 				
 
 # directorys
@@ -71,7 +72,7 @@ SRC			=	$(addprefix $(SRC_DIR), $(SRC_NAME))
 
 # rules
 all:
-	@./spinner.sh make $(NAME)
+	@./spinner.sh make -s $(NAME)
 
 $(NAME):	header obj_header $(OBJ) linking_header
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
@@ -81,12 +82,16 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -o $@ -c $^ $(INC_SRC)
 
-clean:
-	@echo "$(FRed)cleaning$(RESET)"
+clean: header
+	@./spinner.sh make -s cleansimple
+
+cleansimple:
+	@printf "$(FRed)cleaning$(RESET)							  "
 	@rm -rf $(OBJ_DIR)
+	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 fclean: header
-	@./spinner.sh make cleanall
+	@./spinner.sh make -s cleanall
 
 cleanall:
 	@printf "$(FRed)FCleaning$(RESET)						  	  "
@@ -95,7 +100,7 @@ cleanall:
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 re:
-	@./spinner.sh make header cleanall $(NAME)
+	@./spinner.sh make -s header cleanall $(NAME)
 
 header:
 	@printf "$(FYellow)╔═══════════════════════════════════════════════════════════════════╗\n\
