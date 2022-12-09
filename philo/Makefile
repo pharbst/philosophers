@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2022/12/08 11:41:28 by pharbst          ###   ########.fr        #
+#    Updated: 2022/12/09 09:06:47 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,12 +53,12 @@ SRC_NAME	=	main.c \
 				philo_atoi.c \
 				ft_calloc.c\
 				philo.c\
-				timestamp.c\
+				time.c\
 				
 
 # directorys
 INC_DIR		=	includes/
-SRC_DIR		=	src/
+SRC_DIR		=	src/*/
 OBJ_DIR		=	obj/
 
 # Include
