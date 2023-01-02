@@ -6,7 +6,7 @@
 /*   By: peter <peter@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:22:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/03 00:35:43 by peter            ###   ########.fr       */
+/*   Updated: 2023/01/03 00:38:20 by peter            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	take_fork2(t_philo philo)
 		pthread_mutex_lock(&philo.m_id);
 		printf("==%lu==	philo%d took left fork\n", timestamp(philo.parameter.starttime), philo.id);
 		pthread_mutex_unlock(&philo.m_id);
-		pthread_mutex_lock(philo.m_run);
+		pthread_mutex_unlock(philo.m_run);
 	}
 	else
 	{
@@ -34,7 +34,7 @@ bool	take_fork2(t_philo philo)
 		pthread_mutex_lock(&philo.m_id);
 		printf("==%lu==	philo%d took right fork\n", timestamp(philo.parameter.starttime), philo.id);
 		pthread_mutex_unlock(&philo.m_id);
-		pthread_mutex_lock(philo.m_run);
+		pthread_mutex_unlock(philo.m_run);
 	}
 	return (false);
 }
