@@ -6,7 +6,7 @@
 /*   By: peter <peter@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/02 23:21:31 by peter            ###   ########.fr       */
+/*   Updated: 2023/01/02 23:33:02 by peter            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philo
 	bool			alive;
 	pthread_mutex_t	*m_run;
 	bool			*run;
+	pthread_mutex_t	m_id;
 	int				id;
 	int				eat_count;
 	pthread_mutex_t	m_deathtime;
