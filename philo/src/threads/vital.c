@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vital.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: peter <peter@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2022/12/09 11:53:35 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/02 21:25:35 by peter            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    vitalmonitor(t_a *a)
     while(1)
     {
         pthread_mutex_lock(&a->m_run);
-        if (a->run == false)
+        if (*(a->run) == false)
         {
             pthread_mutex_unlock(&a->m_run);
             return ;
@@ -49,10 +49,10 @@ void    vitalmonitor(t_a *a)
         real_usleep(time);
         pthread_mutex_lock(&early->m_deathtime);
         pthread_mutex_lock(&a->m_run);
-        if (early->deathtime <= utime() && a->run == true)
+        if (early->deathtime <= utime() && *(a->run) == true)
         {
             printf("==%d==	philo%d died", timestamp(a->parameter.starttime), early->id);
-            a->run = false;
+            *(a->run) = false;
             pthread_mutex_unlock(&a->m_run);
             pthread_mutex_unlock(&early->m_deathtime);
             return ;
