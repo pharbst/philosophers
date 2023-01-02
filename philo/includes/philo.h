@@ -6,7 +6,7 @@
 /*   By: peter <peter@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/02 15:19:31 by peter            ###   ########.fr       */
+/*   Updated: 2023/01/02 23:21:31 by peter            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_philo
 typedef struct s_a
 {
 	bool			*run;
-	pthread_mutex_t	m_run;
+	pthread_mutex_t	*m_run;
 	t_para			parameter;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
