@@ -3,63 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: peter <peter@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:22:01 by pharbst           #+#    #+#             */
-/*   Updated: 2022/12/09 09:30:37 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/02 23:19:11 by peter            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static int	philo_sleep(unsigned int wakeuptime, unsigned long deathtime)
-{
-	unsigned long	actualtime;
-	struct timeval	tv;
+// static int	philo_sleep(unsigned int wakeuptime, unsigned long deathtime)
+// {
+// 	unsigned long	actualtime;
+// 	struct timeval	tv;
 
-	if (wakeuptime > deathtime)
-		wakeuptime = deathtime;
-	gettimeofday(&tv, NULL);
-	actualtime = tv.tv_sec * 1000000 + tv.tv_usec;
-	while(actualtime < wakeuptime)
+// 	if (wakeuptime > deathtime)
+// 		wakeuptime = deathtime;
+// 	gettimeofday(&tv, NULL);
+// 	actualtime = tv.tv_sec * 1000000 + tv.tv_usec;
+// 	while(actualtime < wakeuptime)
+// 	{
+// 		usleep(1);
+// 		gettimeofday(&tv, NULL);
+// 		actualtime = tv.tv_sec * 1000000 + tv.tv_usec;
+// 	}
+// 	if (wakeuptime == deathtime)
+// 		return (1);
+// 	return (0);
+// }
+
+bool	take_fork2(t_philo philo)
+{
+	if (philo.id % 2 == 0)
 	{
-		usleep(1);
-		gettimeofday(&tv, NULL);
-		actualtime = tv.tv_sec * 1000000 + tv.tv_usec;
+		pthread_mutex_lock(philo.m_run);
+		if (*(philo.run) == true)
+		{
+			pthread_mutex_lock(philo.left_fork);
+			printf("==%lu==	philo%d took left fork\n", timestamp(philo.parameter.starttime));
+			pthread_mutex_lock(philo.m_run);
+		}
+		else
+			return (true);
 	}
-	if (wakeuptime == deathtime)
-		return (1);
-	return (0);
+	else
+	{
+		pthread_mutex_lock(philo.m_run);
+		if (*(philo.run) == true)
+		{
+			pthread_mutex_lock(philo.right_fork);
+			printf("==%lu==	philo%d took right fork\n", timestamp(philo.parameter.starttime));
+			pthread_mutex_lock(philo.m_run);
+		}
+		else
+			return (true);
+	}
+	return (false);
+}
+
+bool	take_fork1(t_philo philo)
+{
+	if (philo.id % 2 == 0)
+	{
+		pthread_mutex_lock(philo.m_run);
+		if (*(philo.run) == false)
+			return (true);
+		pthread_mutex_lock(philo.right_fork);
+		printf("==%lu==	philo%d took right fork\n", timestamp(philo.parameter.starttime));
+		pthread_mutex_unlock(philo.m_run);
+	}
+	else
+	{
+		pthread_mutex_lock(philo.m_run);
+		if (*(philo.run) == true)
+		{
+			pthread_mutex_lock(philo.left_fork);
+			printf("==%lu==	philo%d took left fork\n", timestamp(philo.parameter.starttime));
+			pthread_mutex_unlock(philo.m_run);
+		}
+		else
+			return (true);
+	}
+	return (take_fork2(philo));
 }
 
 void	philo(t_philo philo)
 {
-	while (philo.alive == true && (philo.parameter.eat_count == -1 || philo.eat_count < philo.parameter.eat_count))
+	pthread_mutex_lock(&philo.m_alive);
+	pthread_mutex_lock(philo.m_run);
+	while (philo.alive == true && (philo.parameter.eat_count == -1 || philo.eat_count < philo.parameter.eat_count) && *(philo.run) == true)
 	{
 		printf("==%lu==	philo%d is thinking", timestamp(philo.parameter.starttime), philo.id);
-		if (philo.id % 2 == 0)
-			pthread_mutex_lock(philo.right_fork);
-		else
-			pthread_mutex_lock(philo.left_fork);
-		if (philo.id % 2 == 0)
-			pthread_mutex_lock(philo.left_fork);
-		else
-			pthread_mutex_lock(philo.right_fork);
+		pthread_mutex_unlock(philo.m_run);
+		pthread_mutex_unlock(&philo.m_alive);
+		if (take_fork1 == true)
+			return ;
+		pthread_mutex_lock(philo.m_run);
+		if (*(philo.run) == false)
+			return ;
 		philo.deathtime = utime() + philo.parameter.time_to_die * 1000;
-		if (philo_sleep(utime() + philo.parameter.time_to_eat * 1000, philo.deathtime))
-		{
-			pthread_mutex_lock(&philo.m_alive);
-			philo.alive = false;
-			pthread_mutex_unlock(&philo.m_alive);
+		real_usleep(utime() + philo.parameter.time_to_eat * 1000);
+		pthread_mutex_lock(&philo.m_alive);
+		if (philo.alive == false)
 			return ;
-		}
 		printf("==%lu==	philo%d is sleeping", timestamp(philo.parameter.starttime), philo.id);
-		if (philo_sleep(utime() + philo.parameter.time_to_sleep, philo.deathtime))
-		{
-			pthread_mutex_lock(&philo.m_alive);
-			philo.alive = false;
-			pthread_mutex_unlock(&philo.m_alive);
+		real_usleep(utime() + philo.parameter.time_to_sleep * 1000);
+		if (philo.alive == false)
 			return ;
-		}
 	}
 }
