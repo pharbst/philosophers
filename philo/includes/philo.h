@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: peter <peter@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/02 23:33:02 by peter            ###   ########.fr       */
+/*   Updated: 2023/01/04 15:41:20 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct s_para
 
 typedef struct s_philo
 {
-	pthread_mutex_t	m_alive;
-	bool			alive;
 	pthread_mutex_t	*m_run;
 	bool			*run;
 	pthread_mutex_t	m_id;
@@ -54,8 +52,8 @@ typedef struct s_philo
 
 typedef struct s_a
 {
-	bool			*run;
-	pthread_mutex_t	*m_run;
+	bool			run;
+	pthread_mutex_t	m_run;
 	t_para			parameter;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
@@ -70,7 +68,7 @@ void			*ft_calloc(size_t nelem, size_t elsize);
 /*ft_bzero wipe memory with 0*/
 void	ft_bzero(void *s, size_t n);
 /*philo is the main function for all philosophers*/
-void			philo(t_philo philo);
+void			philo(t_philo *philo);
 /*utime returns the values of gettimeofday together as a unsigned long in usec*/
 unsigned long   utime();
 /*timestamp returns the diffrenence of starttime and actual time in ms*/
