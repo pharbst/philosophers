@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:22:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/04 15:40:58 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/14 01:00:02 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ bool	take_fork1(t_philo *philo)
 	return (take_fork2(philo));
 }
 
-void	philo(t_philo *philo)
+void	philo_main(void *data)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
 	pthread_mutex_lock(philo->m_run);
 	while ((philo->parameter.eat_count == -1 || philo->eat_count < philo->parameter.eat_count) && *(philo->run) == true)
 	{

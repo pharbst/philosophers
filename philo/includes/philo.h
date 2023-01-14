@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/04 15:41:20 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/09 17:37:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			*ft_calloc(size_t nelem, size_t elsize);
 /*ft_bzero wipe memory with 0*/
 void	ft_bzero(void *s, size_t n);
 /*philo is the main function for all philosophers*/
-void			philo(t_philo *philo);
+void			philo_main(t_philo *philo);
 /*utime returns the values of gettimeofday together as a unsigned long in usec*/
 unsigned long   utime();
 /*timestamp returns the diffrenence of starttime and actual time in ms*/

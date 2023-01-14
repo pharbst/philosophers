@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/04 15:39:26 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/14 01:03:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,17 @@ static void	distribute_forks(t_a *a)
 
 static bool	create_philos(t_a *a)
 {
+	t_philo	*data;
 	int	i;
 	if (setup_philos(a))
 		return (true);
 	distribute_forks(a);
 	i = -1;
 	while (++i < a->parameter.philo_count)
-		pthread_create(&a->philo[i].thread, NULL, &philo, &a->philo[i]);
+	{
+		data = &a->philo[i];
+		pthread_create(&a->philo[i].thread, NULL, &philo_main, ((void *)data));
+	}
 	return (false);
 }
 
