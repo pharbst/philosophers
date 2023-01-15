@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2023/01/04 21:34:33 by pharbst          ###   ########.fr        #
+#    Updated: 2022/12/09 09:34:44 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ SRC_NAME	=	main.c \
 				philo.c\
 				time.c\
 				ft_bzero.c\
-				vital.c\
 				
 
 # directorys
