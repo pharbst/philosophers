@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/14 01:03:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/15 05:54:44 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static bool	setup_philos(t_a *a)
 {
 	int	pnum;
 
+	pnum = a->parameter.philo_count;
 	a->philo = ft_calloc(pnum + 1, sizeof(t_philo));
 	pnum = 0;
 	while (pnum < a->parameter.philo_count)
@@ -40,6 +41,7 @@ static bool	setup_philos(t_a *a)
 			return (true);
 		a->philo[pnum].right_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 	}
+	return (false);
 }
 
 static void	distribute_forks(t_a *a)
@@ -76,6 +78,8 @@ bool	execute_sim(t_a *a)
 {
 	struct timeval	tv;
 
+	if (create_philos(a))
+		return (true);
 	gettimeofday(&tv, NULL);
 	(*(unsigned long *)&a->parameter.starttime) = tv.tv_sec * 1000000 + tv.tv_usec;
 	printf("==%lu==	\n", timestamp(a->parameter.starttime));

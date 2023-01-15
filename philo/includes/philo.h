@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/09 17:37:18 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/15 05:50:14 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ bool			execute_sim(t_a *a);
 /*ft_calloc allocate memory and wipe it with 0*/
 void			*ft_calloc(size_t nelem, size_t elsize);
 /*ft_bzero wipe memory with 0*/
-void	ft_bzero(void *s, size_t n);
+void			ft_bzero(void *s, size_t n);
 /*philo is the main function for all philosophers*/
-void			philo_main(t_philo *philo);
+void			*philo_main(void *philo);
 /*utime returns the values of gettimeofday together as a unsigned long in usec*/
 unsigned long   utime();
 /*timestamp returns the diffrenence of starttime and actual time in ms*/
 unsigned long   timestamp(unsigned long starttime);
 /*real_usleep is not a real sleep function is is a function waiting for the wakeuptime in the format of utime*/
-void    real_usleep(unsigned long wakeuptime);
+void    		real_usleep(unsigned long wakeuptime);
 
 
 #endif

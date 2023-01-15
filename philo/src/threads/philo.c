@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:22:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/14 01:00:02 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/15 05:56:27 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	take_fork1(t_philo *philo)
 	return (take_fork2(philo));
 }
 
-void	philo_main(void *data)
+void	*philo_main(void *data)
 {
 	t_philo	*philo;
 
@@ -79,10 +79,10 @@ void	philo_main(void *data)
 		pthread_mutex_unlock(&philo->m_id);
 		pthread_mutex_unlock(philo->m_run);
 		if (take_fork1(philo) == true)
-			return ;
+			return (NULL);
 		pthread_mutex_lock(philo->m_run);
 		if (*(philo->run) == false)
-			return ;
+			return (NULL);
 		pthread_mutex_lock(&philo->m_deathtime);
 		pthread_mutex_lock(&philo->m_id);
 		printf("==%lu==	philo%d is eating\n", timestamp(philo->parameter.starttime), philo->id);
@@ -95,7 +95,7 @@ void	philo_main(void *data)
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_lock(philo->m_run);
 		if (*(philo->run) == false)
-			return ;
+			return (NULL);
 		pthread_mutex_lock(&philo->m_id);
 		printf("==%lu==	philo%d is sleeping", timestamp(philo->parameter.starttime), philo->id);
 		pthread_mutex_unlock(philo->m_run);
@@ -103,4 +103,5 @@ void	philo_main(void *data)
 		real_usleep(utime() + philo->parameter.time_to_sleep * 1000);
 		pthread_mutex_lock(philo->m_run);
 	}
+	return (NULL);
 }
