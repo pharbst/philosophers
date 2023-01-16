@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2022/12/09 09:34:44 by pharbst          ###   ########.fr        #
+#    Updated: 2023/01/16 18:08:32 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ OS_LIKE		=	$(shell cat /etc/os-release | grep ID_LIKE | cut -d= -f2)
 
 # Compiler
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -pthread
 CFLAGS			+=	-g
 LINUX_FLAGS	=	
 
@@ -55,6 +55,7 @@ SRC_NAME	=	main.c \
 				philo.c\
 				time.c\
 				ft_bzero.c\
+				vital.c\
 				
 
 # directorys

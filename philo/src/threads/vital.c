@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 14:51:46 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 18:13:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,33 @@ t_philo *first_dietime(t_a *a)
 	unsigned int	i;
 
 	early = a->philo;
-	while (&a->philo[i])
+    i = 0;
+	while (a->philo[i].id != -1)
     {
         pthread_mutex_lock(&a->philo[i].m_deathtime);
 		if (a->philo[i].deathtime < early->deathtime)
 			early = &a->philo[i];
         pthread_mutex_unlock(&a->philo[i].m_deathtime);
+        i++;
     }
 	return (early);
 }
 
-void    *vitalmonitor(t_a *a)
+void    *vitalmonitor(void *data)
 {
     t_philo         *early;
+    t_a             *a;
     unsigned long   time;
     
+    a = (t_a *)data;
+    printf("start vitalmonitor\n");
     while(1)
     {
         pthread_mutex_lock(&a->m_run);
         if (a->run == false)
         {
             pthread_mutex_unlock(&a->m_run);
-            return ;
+            return (NULL);
         }
         pthread_mutex_unlock(&a->m_run);
         early = first_dietime(a);
@@ -51,11 +56,12 @@ void    *vitalmonitor(t_a *a)
         pthread_mutex_lock(&a->m_run);
         if (early->deathtime <= utime() && a->run == true)
         {
-            printf("==%d==	philo%d died", timestamp(a->parameter.starttime), early->id);
+            printf("==%6lu==        philo%d died", timestamp(a->parameter.starttime), early->id);
             a->run = false;
             pthread_mutex_unlock(&a->m_run);
             pthread_mutex_unlock(&early->m_deathtime);
-            return ;
+            return (NULL);
         }
     }
+    return (NULL);
 }

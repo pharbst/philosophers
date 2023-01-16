@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 14:52:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 18:08:04 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_a
 	t_para			parameter;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
+	pthread_t		thread;
 }	t_a;
 
 /*philo_atoi is for converting input str in a number valid for the project philo*/
@@ -76,7 +77,7 @@ unsigned long   timestamp(unsigned long starttime);
 /*real_usleep is not a real sleep function is is a function waiting for the wakeuptime in the format of utime*/
 void			real_usleep(unsigned long wakeuptime);
 
-void			*vitalmonitor(t_a *a);
+void			*vitalmonitor(void *a);
 
 
 #endif

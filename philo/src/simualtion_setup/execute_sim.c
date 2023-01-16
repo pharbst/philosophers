@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 15:09:37 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 18:14:05 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static bool	setup_philos(t_a *a)
 		a->philo[pnum].right_fork = ft_calloc(1, sizeof(pthread_mutex_t));
 		pnum++;
 	}
-	printf("setup_philos\n");
+	a->philo[pnum].id = -1;
 	return (false);
 }
 
@@ -89,6 +89,7 @@ bool	execute_sim(t_a *a)
 	a->run = true;
 	printf("input values\n");
 	printf("Simulation started with %d philosopers %dms needed to eat %dms needed to sleep %dms to die, each philo should eat %d times\n", a->parameter.philo_count, a->parameter.time_to_eat, a->parameter.time_to_sleep, a->parameter.time_to_die, a->parameter.eat_count);
+	pthread_create(&a->thread, NULL, &vitalmonitor, (void *)a);
 	gettimeofday(&tv, NULL);
 	(*(unsigned long *)&a->parameter.starttime) = tv.tv_sec * 1000000 + tv.tv_usec;
 	if (create_philos(a))
