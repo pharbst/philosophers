@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/04 15:43:41 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 14:51:46 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_philo *first_dietime(t_a *a)
 	return (early);
 }
 
-void    vitalmonitor(t_a *a)
+void    *vitalmonitor(t_a *a)
 {
     t_philo         *early;
     unsigned long   time;

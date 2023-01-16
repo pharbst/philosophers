@@ -6,20 +6,20 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/15 06:18:04 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 15:09:37 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	copy_parameter(t_a *a, t_philo philo)
+static void	copy_parameter(t_a *a, t_philo *philo)
 {
-	*(int *)&philo.parameter.eat_count = a->parameter.eat_count;
-	*(int *)&philo.parameter.philo_count = a->parameter.philo_count;
-	*(int *)&philo.parameter.time_to_die = a->parameter.time_to_die;
-	*(int *)&philo.parameter.time_to_eat = a->parameter.time_to_eat;
-	*(int *)&philo.parameter.time_to_sleep = a->parameter.time_to_sleep;
-	*(unsigned long *)&philo.parameter.starttime = a->parameter.starttime;
+	*(int *)&philo->parameter.eat_count = a->parameter.eat_count;
+	*(int *)&philo->parameter.philo_count = a->parameter.philo_count;
+	*(int *)&philo->parameter.time_to_die = a->parameter.time_to_die;
+	*(int *)&philo->parameter.time_to_eat = a->parameter.time_to_eat;
+	*(int *)&philo->parameter.time_to_sleep = a->parameter.time_to_sleep;
+	*(unsigned long *)&philo->parameter.starttime = a->parameter.starttime;
 }
 
 static bool	setup_philos(t_a *a)
@@ -35,7 +35,7 @@ static bool	setup_philos(t_a *a)
 		a->philo[pnum].id = pnum;
 		a->philo[pnum].m_run = &a->m_run;
 		a->philo[pnum].run = &a->run;
-		copy_parameter(a, a->philo[pnum]);
+		copy_parameter(a, &a->philo[pnum]);
 		if (pthread_mutex_init(&a->philo[pnum].m_id, NULL))
 			return (true);
 		if (pthread_mutex_init(&a->philo[pnum].m_deathtime, NULL))
@@ -86,12 +86,13 @@ bool	execute_sim(t_a *a)
 	int				i;
 
 	printf("execute_sim\n");
-	if (create_philos(a))
-		return (true);
-	gettimeofday(&tv, NULL);
-	(*(unsigned long *)&a->parameter.starttime) = tv.tv_sec * 1000000 + tv.tv_usec;
+	a->run = true;
 	printf("input values\n");
 	printf("Simulation started with %d philosopers %dms needed to eat %dms needed to sleep %dms to die, each philo should eat %d times\n", a->parameter.philo_count, a->parameter.time_to_eat, a->parameter.time_to_sleep, a->parameter.time_to_die, a->parameter.eat_count);
+	gettimeofday(&tv, NULL);
+	(*(unsigned long *)&a->parameter.starttime) = tv.tv_sec * 1000000 + tv.tv_usec;
+	if (create_philos(a))
+		return (true);
 	i = 0;
 	while (i < a->parameter.philo_count)
 	{

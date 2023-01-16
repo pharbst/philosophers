@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/15 05:50:14 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 14:52:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ unsigned long   utime();
 /*timestamp returns the diffrenence of starttime and actual time in ms*/
 unsigned long   timestamp(unsigned long starttime);
 /*real_usleep is not a real sleep function is is a function waiting for the wakeuptime in the format of utime*/
-void    		real_usleep(unsigned long wakeuptime);
+void			real_usleep(unsigned long wakeuptime);
+
+void			*vitalmonitor(t_a *a);
 
 
 #endif
