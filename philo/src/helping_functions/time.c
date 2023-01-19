@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 10:53:27 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/03 15:20:42 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/19 05:01:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void    real_usleep(unsigned long wakeuptime)
 
     now = utime();
     while (now < wakeuptime)
+    {
         now = utime();
+        usleep(1);
+    }
 }
 
 unsigned long   utime()

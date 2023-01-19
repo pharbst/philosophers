@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 18:14:05 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/19 04:54:37 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static bool	setup_philos(t_a *a)
 		a->philo[pnum].m_run = &a->m_run;
 		a->philo[pnum].run = &a->run;
 		copy_parameter(a, &a->philo[pnum]);
+		a->philo[pnum].deathtime = a->parameter.starttime + a->parameter.time_to_die * 1000;
 		if (pthread_mutex_init(&a->philo[pnum].m_id, NULL))
 			return (true);
 		if (pthread_mutex_init(&a->philo[pnum].m_deathtime, NULL))
@@ -89,16 +90,19 @@ bool	execute_sim(t_a *a)
 	a->run = true;
 	printf("input values\n");
 	printf("Simulation started with %d philosopers %dms needed to eat %dms needed to sleep %dms to die, each philo should eat %d times\n", a->parameter.philo_count, a->parameter.time_to_eat, a->parameter.time_to_sleep, a->parameter.time_to_die, a->parameter.eat_count);
-	pthread_create(&a->thread, NULL, &vitalmonitor, (void *)a);
 	gettimeofday(&tv, NULL);
 	(*(unsigned long *)&a->parameter.starttime) = tv.tv_sec * 1000000 + tv.tv_usec;
+	pthread_mutex_lock(&a->m_run);
 	if (create_philos(a))
 		return (true);
 	i = 0;
+	pthread_create(&a->thread, NULL, &vitalmonitor, (void *)a);
+	pthread_mutex_unlock(&a->m_run);
 	while (i < a->parameter.philo_count)
 	{
 		pthread_join(a->philo[i].thread, NULL);
 		i++;
 	}
+	pthread_join(a->thread, NULL);
 	return (false);
 }

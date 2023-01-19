@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:26:25 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 15:02:37 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/16 19:13:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static void	close_sim(t_a *a)
 	i = 0;
 	if (a->forks)
 		while (i < a->parameter.philo_count)
-			pthread_mutex_destroy(&a->forks[i++]);
+		{
+			pthread_mutex_destroy(a->philo[i].left_fork);
+			pthread_mutex_destroy(&a->philo[i].m_deathtime);
+			pthread_mutex_destroy(&a->philo[i].m_id);
+		}
+	pthread_mutex_destroy(&a->m_run);
 	if (a->forks)
 		free(a->forks);
 	return (printf("Simulation ended\n"), free(a));
