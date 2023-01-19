@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:26:25 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 19:13:26 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/19 05:40:24 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int main(int argc, char **argv)
 {
 	t_a		*a;
 
-	printf("starting simulation\n");
 	if (argc != 5 && argc != 6)
 		return (write(2, "Error: Wrong number of arguments\n", 33), 1);
 	a = input_handler(argc, argv);
