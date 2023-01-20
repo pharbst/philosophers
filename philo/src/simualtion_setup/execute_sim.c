@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/19 04:54:37 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/20 00:17:42 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ bool	execute_sim(t_a *a)
 	if (create_philos(a))
 		return (true);
 	i = 0;
-	pthread_create(&a->thread, NULL, &vitalmonitor, (void *)a);
+	// pthread_create(&a->thread, NULL, &vitalmonitor, (void *)a);
 	pthread_mutex_unlock(&a->m_run);
 	while (i < a->parameter.philo_count)
 	{

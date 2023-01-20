@@ -1,5 +1,4 @@
 obj
 *.o
-philo
 a.out
-
+philo/philo

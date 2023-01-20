@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/16 18:08:04 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/20 01:48:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philo
 	bool			*run;
 	pthread_mutex_t	m_id;
 	int				id;
+	// const int		id;
 	int				eat_count;
 	pthread_mutex_t	m_deathtime;
 	unsigned long	deathtime;
