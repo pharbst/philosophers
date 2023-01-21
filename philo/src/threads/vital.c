@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/18 11:23:17 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 07:08:50 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void    *vitalmonitor(void *data)
         if (a->run == false)
         {
             pthread_mutex_unlock(&a->m_run);
-            return (NULL);
+            return (printf("%lu vitalmonitor is returning\n", timestamp(a->parameter.starttime)), NULL);
         }
         pthread_mutex_unlock(&a->m_run);
         early = first_dietime(a);
@@ -60,10 +60,10 @@ void    *vitalmonitor(void *data)
             a->run = false;
             pthread_mutex_unlock(&a->m_run);
             pthread_mutex_unlock(&early->m_deathtime);
-            return (NULL);
+            return (printf("%lu vitalmonitor is returning\n", timestamp(a->parameter.starttime)), NULL);
         }
         pthread_mutex_unlock(&a->m_run);
         pthread_mutex_unlock(&early->m_deathtime);
     }
-    return (NULL);
+    return (printf("%lu vitalmonitor is returning\n", timestamp(a->parameter.starttime)), NULL);
 }
