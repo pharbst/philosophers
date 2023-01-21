@@ -3,48 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   new_philo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 01:24:42 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/20 02:27:27 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 06:07:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool	print_log(t_philo *philo, char *str)
-{
-	pthread_mutex_lock(&philo->m_run);
-	if (*(philo->run) == false)
-		return (true);
-	printf("%lu %d %s", timestamp(philo->parameter.starttime), philo->id, str);
-	pthread_mutex_unlock(&philo->m_run);
-	return (false);
-}
-
-static bool philo_init_thinking(t_philo *philo)
+static bool philo_think(t_philo *philo)
 {
 	if (print_log(philo, "is thinking"))
 		return (true);
 	return (false);
 }
 
-static bool	take_fork(t_philo *philo)
+static bool	philo_eat(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print_log(philo, "has taken a fork");
-		pthread_mutex_lock(philo->right_fork);
-		print_log(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right_fork);
-		print_log(philo, "has taken a fork");
-		pthread_mutex_lock(philo->left_fork);
-		print_log(philo, "has taken a fork");
-	}
+	if (print_log(philo, "is eating"))
+		return (true);
+	real_usleep(philo->parameter.time_to_eat);
+	return (false);
+}
+
+static bool	philo_sleep(t_philo *philo)
+{
+	pthread_mutex_lock(philo->m_run);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	if (*(philo->run) == false)
+		return (true);
+	printf("%lu %d is sleeping\n", philo->id, timestamp(philo->parameter.starttime));
+	pthread_mutex_unlock(philo->m_run);
+	real_usleep(philo->parameter.time_to_sleep);
+	return (false);
 }
 
 void	*philo_main(void *data)
@@ -52,7 +45,7 @@ void	*philo_main(void *data)
 	t_philo	*philo;
 
 	philo = data;
-	if (philo_init_thinking(philo))
+	if (philo_think(philo))
 		return (NULL);
 	while (1)
 	{
