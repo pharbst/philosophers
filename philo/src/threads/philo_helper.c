@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 06:06:58 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 06:07:13 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 06:34:21 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	print_log(t_philo *philo, char *str)
 		pthread_mutex_unlock(philo->m_run);
 		return (true);
 	}
-	printf("%lu %d %s", timestamp(philo->parameter.starttime), philo->id, str);
+	printf("%lu %d %s\n", timestamp(philo->parameter.starttime), philo->id, str);
 	pthread_mutex_unlock(philo->m_run);
 	return (false);
 }

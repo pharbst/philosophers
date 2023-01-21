@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 01:24:42 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 06:07:18 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 06:34:34 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	philo_sleep(t_philo *philo)
 	pthread_mutex_unlock(philo->right_fork);
 	if (*(philo->run) == false)
 		return (true);
-	printf("%lu %d is sleeping\n", philo->id, timestamp(philo->parameter.starttime));
+	printf("%lu %d is sleeping\n", timestamp(philo->parameter.starttime), philo->id);
 	pthread_mutex_unlock(philo->m_run);
 	real_usleep(philo->parameter.time_to_sleep);
 	return (false);

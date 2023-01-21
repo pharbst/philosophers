@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 06:01:42 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 06:10:05 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 06:34:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ static bool	fork_odd(t_philo *philo)
 bool	take_fork(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
+	{
 		if (fork_even(philo))
 			return (true);
+	}
 	else
+	{
 		if (fork_odd(philo))
 			return (true);
+	}
 	return (false);
 }
