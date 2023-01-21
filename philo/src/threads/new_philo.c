@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 01:24:42 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 06:41:29 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 06:50:47 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void	*philo_main(void *data)
 
 	philo = data;
 	if (philo_think(philo))
-		return (NULL);
+		return (printf("%lu %d returning\n", timestamp(philo->parameter.starttime), philo->id), NULL);
 	if (philo->id % 2 == 1)
 		real_usleep(utime() + philo->parameter.time_to_eat * 1000);
 	while (1)
 	{
 		if (take_fork(philo))
-			return (NULL);
+			return (printf("%lu %d returning\n", timestamp(philo->parameter.starttime), philo->id), NULL);
 		if (philo_eat(philo))
-			return (NULL);
+			return (printf("%lu %d returning\n", timestamp(philo->parameter.starttime), philo->id), NULL);
 		if (philo_sleep(philo))
-			return (NULL);
+			return (printf("%lu %d returning\n", timestamp(philo->parameter.starttime), philo->id), NULL);
 		if (philo_think(philo))
-			return (NULL);
+			return (printf("%lu %d returning\n", timestamp(philo->parameter.starttime), philo->id), NULL);
 	}
 }
