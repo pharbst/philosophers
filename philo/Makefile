@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2023/01/16 18:08:32 by pharbst          ###   ########.fr        #
+#    Updated: 2023/01/21 06:34:14 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,10 +52,12 @@ SRC_NAME	=	main.c \
 				execute_sim.c \
 				philo_atoi.c \
 				ft_calloc.c\
-				philo.c\
 				time.c\
 				ft_bzero.c\
 				vital.c\
+				new_philo.c\
+				philo_helper.c\
+				philo_take_fork.c\
 				
 
 # directorys

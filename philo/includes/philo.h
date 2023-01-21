@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 06:18:42 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 06:34:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ void			*vitalmonitor(void *a);
 
 
 
-// /*thread routine helper functions*/
+/*thread routine helper functions*/
 
-// /*locks the run mutex and prints the log massage if the run variable is true*/
-// bool			print_log(t_philo *philo, char *str);
-// /*fork taking function for philo routine*/
-// bool			take_fork(t_philo *philo);
+/*locks the run mutex and prints the log massage if the run variable is true*/
+bool			print_log(t_philo *philo, char *str);
+/*fork taking function for philo routine*/
+bool			take_fork(t_philo *philo);
 
 #endif
