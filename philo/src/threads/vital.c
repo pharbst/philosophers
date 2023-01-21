@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 07:08:50 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 09:18:07 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void    *vitalmonitor(void *data)
     unsigned long   time;
     
     a = (t_a *)data;
-    printf("==%6lu==		start vitalmonitor\n", timestamp(a->parameter.starttime));
+    // printf("==%6lu==		start vitalmonitor\n", timestamp(a->parameter.starttime));
     while(1)
     {
         pthread_mutex_lock(&a->m_run);
