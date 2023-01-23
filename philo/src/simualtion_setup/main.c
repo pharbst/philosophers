@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:26:25 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 02:21:08 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 02:53:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	close_sim(t_a *a, int error_code)
 	{
 		i = 0;
 		if (a->forks)
+		{
 			while (i < a->parameter.philo_count)
 			{
 				pthread_mutex_destroy(a->philo[i].left_fork);
@@ -27,6 +28,7 @@ static void	close_sim(t_a *a, int error_code)
 				pthread_mutex_destroy(&a->philo[i].m_eat_count);
 				i++;
 			}
+		}
 		if (a->philo)
 			free(a->philo);
 		pthread_mutex_destroy(&a->m_run);
@@ -36,7 +38,7 @@ static void	close_sim(t_a *a, int error_code)
 	return (free(a));
 }
 
-t_a	*input_handler(int argc, char** argv)
+t_a	*input_handler(int argc, char **argv)
 {
 	t_a	*a;
 
@@ -49,12 +51,14 @@ t_a	*input_handler(int argc, char** argv)
 		(*(int *)&a->parameter.eat_count) = philo_atoi(argv[5]);
 	else
 		(*(int *)&a->parameter.eat_count) = -1;
-	if (a->parameter.philo_count < 1 || a->parameter.time_to_die < 1 || a->parameter.time_to_eat < 1 || a->parameter.time_to_sleep < 1 || (argc == 6 && a->parameter.eat_count < 1))
+	if (a->parameter.philo_count < 1 || a->parameter.time_to_die < 1
+		|| a->parameter.time_to_eat < 1 || a->parameter.time_to_sleep < 1
+		|| (argc == 6 && a->parameter.eat_count < 1))
 		return (write(1, "Error: invalid input\n", 21), NULL);
 	return (a);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_a		*a;
 	int		error_code;

@@ -6,13 +6,13 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 01:24:42 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 02:41:26 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 03:05:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool philo_think(t_philo *philo)
+static bool	philo_think(t_philo *philo)
 {
 	if (print_log(philo, "is thinking"))
 		return (true);
@@ -26,7 +26,7 @@ static bool	philo_eat(t_philo *philo)
 	if (print_log(philo, "is eating"))
 	{
 		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);	
+		pthread_mutex_unlock(philo->right_fork);
 		return (true);
 	}
 	pthread_mutex_lock(&philo->m_deathtime);
@@ -52,7 +52,8 @@ static bool	philo_sleep(t_philo *philo)
 		pthread_mutex_unlock(philo->m_run);
 		return (true);
 	}
-	printf("%lu %d is sleeping\n", timestamp(philo->parameter->starttime), philo->id + 1);
+	printf("%lu %d is sleeping\n", timestamp(philo->parameter->starttime),
+		philo->id + 1);
 	pthread_mutex_unlock(philo->m_run);
 	real_usleep(utime() + philo->parameter->time_to_sleep * 1000);
 	return (false);

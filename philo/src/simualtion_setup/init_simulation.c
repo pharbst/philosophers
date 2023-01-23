@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 09:35:59 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 10:49:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 02:51:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	distribute_forks(t_a *a)
 		a->philo[0].left_fork = NULL;
 	else
 	{
-		a->philo[a->parameter.philo_count - 1].left_fork = a->philo[0].right_fork;
+		a->philo[a->parameter.philo_count - 1].left_fork
+			= a->philo[0].right_fork;
 		i = 0;
 		while (i < a->parameter.philo_count - 1)
 		{

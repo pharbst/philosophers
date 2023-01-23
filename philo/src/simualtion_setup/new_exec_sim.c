@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 10:19:27 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 02:21:16 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 02:54:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	create_threads(t_a *a)
 	i = 0;
 	while (i < a->parameter.philo_count)
 	{
-		if (pthread_create(&a->philo[i].thread, NULL, &philo_main, &a->philo[i]))
+		if (pthread_create(&a->philo[i].thread, NULL,
+				&philo_main, &a->philo[i]))
 			return (true);
 		i++;
 	}
