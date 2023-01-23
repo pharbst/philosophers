@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2023/01/21 16:30:26 by pharbst          ###   ########.fr        #
+#    Updated: 2023/01/23 13:29:08 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC_NAME	=	main.c \
 				food_monitor.c\
 				philo_helper.c\
 				philo_take_fork.c\
+				thread_helpers.c\
 				
 
 # directorys

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 02:47:27 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:25:57 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void			*food_monitor(void *a);
 
 bool			print_log(t_philo *philo, char *str);
 bool			take_fork(t_philo *philo);
+bool			run_check(pthread_mutex_t *m_run, bool *run);
 
 #endif
