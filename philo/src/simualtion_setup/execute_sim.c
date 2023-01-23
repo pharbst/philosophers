@@ -6,28 +6,16 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 07:06:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 07:02:44 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 10:19:04 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	copy_parameter(t_a *a, t_philo *philo)
-{
-	*(int *)&philo->parameter.eat_count = a->parameter.eat_count;
-	*(int *)&philo->parameter.philo_count = a->parameter.philo_count;
-	*(int *)&philo->parameter.time_to_die = a->parameter.time_to_die;
-	*(int *)&philo->parameter.time_to_eat = a->parameter.time_to_eat;
-	*(int *)&philo->parameter.time_to_sleep = a->parameter.time_to_sleep;
-	*(unsigned long *)&philo->parameter.starttime = a->parameter.starttime;
-}
-
 static bool	setup_philos(t_a *a)
 {
 	int	pnum;
 
-	pnum = a->parameter.philo_count;
-	a->philo = ft_calloc(pnum + 1, sizeof(t_philo));
 	pnum = 0;
 	printf("setup_philos\n");
 	while (pnum < a->parameter.philo_count)
