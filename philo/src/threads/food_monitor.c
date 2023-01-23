@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 10:37:13 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 13:27:55 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:39:16 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static bool	food_checker(t_a *a)
 			pthread_mutex_unlock(&a->philo[i].m_eat_count);
 			i++;
 		}
-		pthread_mutex_unlock(&a->philo[i].m_eat_count);
+		else
+			pthread_mutex_unlock(&a->philo[i].m_eat_count);
 		if (i == a->parameter.philo_count)
 			return (false);
 		usleep(100);

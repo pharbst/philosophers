@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 13:26:43 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 13:43:15 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	death_check(t_a *a, t_philo *early)
 		pthread_mutex_unlock(&early->m_deathtime);
 		return ;
 	}
+	pthread_mutex_unlock(&a->m_run);
+	pthread_mutex_unlock(&early->m_deathtime);
 }
 
 void	*vitalmonitor(void *data)
@@ -60,7 +62,8 @@ void	*vitalmonitor(void *data)
 	a = (t_a *)data;
 	while (1)
 	{
-		run_check(&a->m_run, &a->run);
+		if (run_check(&a->m_run, &a->run))
+			return (NULL);
 		early = first_dietime(a);
 		pthread_mutex_lock(&early->m_deathtime);
 		time = early->deathtime;
