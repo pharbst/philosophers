@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:43:41 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 09:18:07 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/23 02:19:59 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,21 @@
 t_philo *first_dietime(t_a *a)
 {
 	t_philo			*early;
-	unsigned int	i;
+	int	            i;
 
 	early = a->philo;
-    i = 0;
-	while (a->philo[i].id != -1)
+    i = 1;
+	while (i < a->parameter.philo_count)
     {
         pthread_mutex_lock(&a->philo[i].m_deathtime);
+        pthread_mutex_lock(&early->m_deathtime);
 		if (a->philo[i].deathtime < early->deathtime)
+        {
+            pthread_mutex_unlock(&early->m_deathtime);
 			early = &a->philo[i];
+        }
+        else
+            pthread_mutex_unlock(&early->m_deathtime);
         pthread_mutex_unlock(&a->philo[i].m_deathtime);
         i++;
     }
@@ -32,19 +38,18 @@ t_philo *first_dietime(t_a *a)
 
 void    *vitalmonitor(void *data)
 {
-    t_philo         *early;
     t_a             *a;
+    t_philo         *early;
     unsigned long   time;
     
     a = (t_a *)data;
-    // printf("==%6lu==		start vitalmonitor\n", timestamp(a->parameter.starttime));
     while(1)
     {
         pthread_mutex_lock(&a->m_run);
         if (a->run == false)
         {
             pthread_mutex_unlock(&a->m_run);
-            return (printf("%lu vitalmonitor is returning\n", timestamp(a->parameter.starttime)), NULL);
+            return (NULL);
         }
         pthread_mutex_unlock(&a->m_run);
         early = first_dietime(a);
@@ -60,10 +65,10 @@ void    *vitalmonitor(void *data)
             a->run = false;
             pthread_mutex_unlock(&a->m_run);
             pthread_mutex_unlock(&early->m_deathtime);
-            return (printf("%lu vitalmonitor is returning\n", timestamp(a->parameter.starttime)), NULL);
+            return (NULL);
         }
         pthread_mutex_unlock(&a->m_run);
         pthread_mutex_unlock(&early->m_deathtime);
     }
-    return (printf("%lu vitalmonitor is returning\n", timestamp(a->parameter.starttime)), NULL);
+    return (NULL);
 }

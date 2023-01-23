@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2023/01/21 07:03:12 by pharbst          ###   ########.fr        #
+#    Updated: 2023/01/21 16:30:26 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,13 +49,16 @@ PRONAME		=	Philosophers
 
 # srcfiles
 SRC_NAME	=	main.c \
-				execute_sim.c \
+				init_simulation.c \
+				new_exec_sim.c \
 				philo_atoi.c \
 				ft_calloc.c\
+				ft_strlen.c\
 				time.c\
 				ft_bzero.c\
-				vital.c\
 				new_philo.c\
+				vital.c\
+				food_monitor.c\
 				philo_helper.c\
 				philo_take_fork.c\
 				

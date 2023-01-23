@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:21:45 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 07:02:59 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/21 16:36:38 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # include <string.h>
 # include <stdbool.h>
 
+# define ERROR_1	"Error: Wrong number of arguments\n"
+# define ERROR_2	"Error: memory allocation in init_simulation failed\n"
+# define ERROR_3	"Error: mutex init in init_simulation failed\n"
+# define ERROR_4	"Error: thread creation in exec_sim failed\n"
+# define ERROR_5	"Error: thread joining in exec_sim failed\n"
+
 typedef struct s_para
 {
 	const int			philo_count;
@@ -37,28 +43,28 @@ typedef struct s_para
 
 typedef struct s_philo
 {
-	pthread_mutex_t	*m_run;
-	bool			*run;
-	pthread_mutex_t	m_id;
-	int				id;
-	// const int		id;
-	int				eat_count;
-	pthread_mutex_t	m_deathtime;
+	const int		id;
 	unsigned long	deathtime;
-	t_para			parameter;
-	pthread_t		thread;
+	int				eat_count;
+	bool			*run;
+	t_para			*parameter;
+	pthread_mutex_t	*m_run;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	m_deathtime;
+	pthread_mutex_t	m_eat_count;
+	pthread_t		thread;
 }	t_philo;
 
 typedef struct s_a
 {
 	bool			run;
-	pthread_mutex_t	m_run;
 	t_para			parameter;
-	pthread_mutex_t	*forks;
 	t_philo			*philo;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	m_run;
 	pthread_t		thread;
+	pthread_t		thread2;
 }	t_a;
 
 
@@ -71,6 +77,7 @@ long			philo_atoi(char *str);
 void			ft_bzero(void *s, size_t n);
 /*ft_calloc allocate memory and wipe it with 0*/
 void			*ft_calloc(size_t nelem, size_t elsize);
+unsigned long   ft_strlen(const char *s);
 /*utime returns the values of gettimeofday together as a unsigned long in usec*/
 unsigned long   utime();
 /*timestamp returns the diffrenence of starttime and actual time in ms*/
@@ -82,8 +89,10 @@ void			real_usleep(unsigned long wakeuptime);
 
 /*general managing functions*/
 
-/*execute_sim starts the execution of the simulation*/
-bool			execute_sim(t_a *a);
+/*starts the execution of the simulation*/
+int				exec_sim(t_a *a);
+/*prepares everything to run the simulation*/
+int				init_simulation(t_a *a);
 
 
 
@@ -93,6 +102,8 @@ bool			execute_sim(t_a *a);
 void			*philo_main(void *philo);
 /*vitalmonitor monitors the deathtime of all philos and set the run variable to false if a philo dies*/
 void			*vitalmonitor(void *a);
+/*food_monitor monitors the eat_count of all philos and set the run variable to false if all philos ate enough*/
+void			*food_monitor(void *a);
 
 
 
