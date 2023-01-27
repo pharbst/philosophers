@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 06:01:42 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/21 11:30:44 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:31:46 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static bool	fork_even(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
 	if (print_log(philo, "has taken a fork"))
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		return (true);
+	}
+	if (!philo->left_fork)
 	{
 		pthread_mutex_unlock(philo->right_fork);
 		return (true);

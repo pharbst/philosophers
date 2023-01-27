@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 02:26:25 by pharbst           #+#    #+#             */
-/*   Updated: 2023/01/23 02:53:48 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/01/27 15:32:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	close_sim(t_a *a, int error_code)
 		{
 			while (i < a->parameter.philo_count)
 			{
-				pthread_mutex_destroy(a->philo[i].left_fork);
+				pthread_mutex_destroy(a->philo[i].right_fork);
 				pthread_mutex_destroy(&a->philo[i].m_deathtime);
 				pthread_mutex_destroy(&a->philo[i].m_eat_count);
 				i++;
