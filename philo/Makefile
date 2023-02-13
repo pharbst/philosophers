@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/26 07:27:01 by pharbst           #+#    #+#              #
-#    Updated: 2023/01/23 13:29:08 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/13 10:55:22 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,9 @@ SRC_NAME	=	main.c \
 				
 
 # directorys
+VPATH		=	src/ src/helping_functions src/threads src/simulation_setup
 INC_DIR		=	includes/
-SRC_DIR		=	src/*/
+SRC_DIR		=	src/
 OBJ_DIR		=	obj/
 
 # Include
@@ -75,7 +76,7 @@ INC_SRC		=	-I includes/
 # object
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_NAME))
-SRC			=	$(addprefix $(SRC_DIR), $(SRC_NAME))
+SRC			=	$(SRC_NAME)
 
 # rules
 all:
@@ -85,9 +86,9 @@ $(NAME):	header obj_header $(OBJ) linking_header
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+$(OBJ_DIR)%.o:	%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -o $@ -c $^ $(INC_SRC)
+	@$(CC) $(CFLAGS) $(INC_SRC) -o $@ -c $^
 
 clean: header
 	@./spinner.sh make -s cleansimple
